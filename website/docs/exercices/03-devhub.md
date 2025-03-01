@@ -30,6 +30,30 @@ Voici à quoi ressemblera votre application finale :
   />
 </div>
 
+## 📋 Étape 0 : Lancer le projet
+
+Commencez par naviguer vers le dossier de l'exercice et installer les dépendances :
+
+```bash
+cd 03-devhub
+npm install
+```
+
+Puis lancez le projet :
+
+```bash
+npx expo start
+```
+
+:::info
+Si vous rencontrez des problèmes de connexion, essayez de lancer le projet avec le tunnel :
+
+```bash
+npx expo start --tunnel
+```
+
+:::
+
 ## 📋 Étape 1 : Créer un projet Supabase
 
 ### 1.1 Installation des dépendances

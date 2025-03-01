@@ -33,13 +33,37 @@ Voici à quoi ressemblera votre app :
   />
 </div>
 
+## 📋 Étape 0 : Lancer le projet
+
+Commencez par naviguer vers le dossier de l'exercice et installer les dépendances :
+
+```bash
+cd 02-devnotes
+npm install
+```
+
+Puis lancez le projet :
+
+```bash
+npx expo start
+```
+
+:::info
+Si vous rencontrez des problèmes de connexion, essayez de lancer le projet avec le tunnel :
+
+```bash
+npx expo start --tunnel
+```
+
+:::
+
 ## 📋 Étape 1 : Création du composant
 
 Commençons par créer le composant réutilisable qui affichera chaque note dans la liste.
 
 ### 1.1 Structure des types
 
-Créez un fichier `types.ts` à la racine du projet :
+Créez un fichier `types.ts` à la racine du projet. Nous pourrons ainsi faire appel au type `Note` dans tous les fichiers.
 
 ```typescript
 export type Note = {
@@ -72,17 +96,35 @@ export default function NoteCard({ note }: Props) {
 }
 ```
 
+<div style={{ 
+  padding: '20px', 
+  background: 'var(--ifm-background-surface-color)', 
+  border: '1px solid var(--ifm-color-emphasis-300)',
+  borderRadius: '8px',
+  marginTop: '24px',
+  marginBottom: '24px',
+  boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
+}}>
+
+### 🎯 Tâche
+
+Terminez le composant `NoteCard.tsx` pour qu'il affiche:
+
+- Le titre de la note
+- La date de la note
+- Le contenu de la note
+
 :::tip Conseil
 Inspirez-vous du code de l'exercice précédent pour créer le composant `NoteCard`.
 :::
 
+</div>
+
 ### 1.3 FlatList
 
-Pour afficher la liste des notes, nous allons utiliser le composant `FlatList`. Une `FlatList` est un composant qui permet de afficher une liste de données de manière dynamique. Dans app/index.tsx, nous allons ajouter un `FlatList` qui utilisera le composant `NoteCard` pour chaque note.
+Pour afficher la liste des notes, nous allons utiliser le composant `FlatList`. Une `FlatList` est un composant qui permet de afficher une liste de données de manière dynamique. Dans app/index.tsx, nous allons ajouter un `FlatList` qui fera appel au composant `NoteCard`.
 
-Vous trouverez un exemple d'utilisation dans la documentation officielle : [FlatList](https://docs.expo.dev/ui-programming/core-components/flatlist/). Inspirez-vous de cet exemple pour afficher la liste des notes.
-
-Ne pas d'importer le composant `NoteCard.tsx` le fichier index.tsx.
+Ne pas oublier d'importer le composant `NoteCard.tsx` dans le fichier index.tsx.
 
 ```typescript
 import NoteCard from "../components/NoteCard";
@@ -98,9 +140,23 @@ export default function Home() {
 }
 ```
 
-:::tip Conseil
-Dans la documentation les notes sont représentées par `Item` et non `NoteCard`.
-:::
+<div style={{ 
+  padding: '20px', 
+  background: 'var(--ifm-background-surface-color)', 
+  border: '1px solid var(--ifm-color-emphasis-300)',
+  borderRadius: '8px',
+  marginTop: '24px',
+  marginBottom: '24px',
+  boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
+}}>
+
+### 🎯 Tâche
+
+Dans le fichier `index.tsx`, ajoutez un `FlatList` qui fera appel au composant `NoteCard`:
+
+Pour ce faire allez dans la documentation officielle : [FlatList](https://reactnative.dev/docs/flatlist)
+
+</div>
 
 ## 📝 Étape 2 : Page de détail d'une note
 
@@ -125,6 +181,25 @@ export default function NoteDetail() {
 }
 ```
 
+<div style={{ 
+  padding: '20px', 
+  background: 'var(--ifm-background-surface-color)', 
+  border: '1px solid var(--ifm-color-emphasis-300)',
+  borderRadius: '8px',
+  marginTop: '24px',
+  marginBottom: '24px',
+  boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
+}}>
+
+### 🎯 Tâche
+
+- Créez un fichier `app/notes/[id].tsx` qui affichera les informations d'une note.
+- Ajouter un `Text` qui affichera le titre de la note
+- Ajouter un `Text` qui affichera la date de la note
+- Ajouter un `Text` qui affichera le contenu de la note
+
+</div>
+
 ### 2.2 Comment aller vers la page de détail d'une note
 
 La page note est créée mais comment aller vers cette page ? Il faut ajouter un lien vers celle-ci pour chaque note de la page d'accueil. Pour cela nous allons utiliser le composant `Link` de `expo-router`.
@@ -139,7 +214,31 @@ export default function NoteCard({ note }: Props) {
 }
 ```
 
+<div style={{ 
+  padding: '20px', 
+  background: 'var(--ifm-background-surface-color)', 
+  border: '1px solid var(--ifm-color-emphasis-300)',
+  borderRadius: '8px',
+  marginTop: '24px',
+  marginBottom: '24px',
+  boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
+}}>
+
+### 🎯 Tâche
+
+Allez dans le fichier `NoteCard.tsx` et ajoutez un lien vers la page de détail d'une note.
+
+Pour ce faire allez dans la documentation officielle : [Link](https://docs.expo.dev/router/navigating-pages/)
+
+:::tip Conseil
+Comme la page note est dynamique, il faut passer l'id de la note en paramètre. Voici comment définir un paramètre dynamique : `/notes/${note.id}`
+:::
+
+</div>
+
+:::info
 A ce stade, vous pouvez accéder à la page de détail d'une note en cliquant sur une note de la liste. Cependant, il manque la barre de navigation en haut et le bouton retour automatique. Pour cela nous allons devoir utiliser le Layout.
+:::
 
 ### 2.3 Pourquoi un Layout ?
 
@@ -167,7 +266,7 @@ Sans Layout, votre application fonctionnera mais ne ressemblera pas à une vraie
 
 le layout est le composant racine de l'application. Il est important de le créer pour que l'application fonctionne correctement. Il permet de gérer la navigation entre les différentes pages de l'application.
 
-Créez un dossier `layout` dans `app/` avec un fichier `_layout.tsx`.
+Créez un fichier `_layout.tsx` dans `app/` avec le code suivant:
 
 ```typescript
 import { Stack } from "expo-router";
@@ -195,10 +294,6 @@ export default function Layout() {
 
 Dans le app/new/index.tsx, nous allons créer un formulaire pour créer une nouvelle note. Pour cela nous allons utiliser les composants `TextInput`. Le composant `Pressable` sera utilisé pour le bouton de création.
 
-Pour comprendre le fonctionnement d'un TextInput, consultez la documentation officielle : [TextInput](https://docs.expo.dev/ui-programming/core-components/textinput/).
-
-Pour le Pressable, il suffit de faire appel à la fonction `handleCreate` lorsque l'utilisateur appuie sur le bouton.
-
 ```typescript
 import { View, TextInput, Pressable, Text, StyleSheet } from "react-native";
 import { useRouter } from "expo-router";
@@ -219,33 +314,76 @@ export default function NewNote() {
   };
 
   return (
-    <View style={styles.container}>
+    <View>
       <TextInput
-        style={styles.input}
         placeholder="Title"
         // TODO: Ajouter les éléments du formulaire
       />
       <TextInput
-        style={[styles.input, styles.contentInput]}
         placeholder="Content"
         // TODO: Ajouter les éléments du formulaire
         multiline
       />
-      <Pressable style={styles.button}>
-        <Text style={styles.buttonText}>Create Note</Text>
+      <Pressable>
+        <Text>Create Note</Text>
       </Pressable>
     </View>
   );
 }
 ```
 
+<div style={{ 
+  padding: '20px', 
+  background: 'var(--ifm-background-surface-color)', 
+  border: '1px solid var(--ifm-color-emphasis-300)',
+  borderRadius: '8px',
+  marginTop: '24px',
+  marginBottom: '24px',
+  boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
+}}>
+
+### 🎯 Tâche
+
+Créez un fichier `app/new/index.tsx` qui sera un formulaire pour ajouter une nouvelle note.
+
+Il faut utiliser les composants `TextInput` et `Pressable`.
+
+Utilisez la documentation officielle pour comprendre comment utiliser ces composants : [TextInput](https://reactnative.dev/docs/textinput) et [Pressable](https://reactnative.dev/docs/pressable).
+
+- Compléter `TextInput` pour le titre et le contenu
+- Compléter le bouton de création
+
+:::tip Conseil
+Pour `textInput` utiliser les éléments `value` et `onChangeText` pour gérer les données.
+Il faut faire appel à la fonction `handleCreate` lorsque l'utilisateur appuie sur le bouton.
+:::
+
+</div>
+
 ### 4.2 Ajout du bouton de création
 
-Dans app/index.tsx, ajoutez un lien vers la page de création de note.
+<div style={{ 
+  padding: '20px', 
+  background: 'var(--ifm-background-surface-color)', 
+  border: '1px solid var(--ifm-color-emphasis-300)',
+  borderRadius: '8px',
+  marginTop: '24px',
+  marginBottom: '24px',
+  boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
+}}>
+
+### 🎯 Tâche
+
+Dans, nous devons ajouter un bouton pour créer une nouvelle note:
+
+- Ajouter un bouton dans `app/index.tsx`
+- Mettez à jour le `app/_layout.tsx` pour ajouter la page de création de note
 
 :::tip Conseil
 Pour ajouter un lien, il suffit d'utiliser le composant `Link` de `expo-router`. C'est similaire à ce qui a été fait dans NoteCard.tsx.
 :::
+
+</div>
 
 ### 4.3 Configuration du routage
 

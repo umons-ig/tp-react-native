@@ -32,7 +32,7 @@ Voici à quoi ressemblera votre application finale :
 Commencez par naviguer vers le dossier de l'exercice et installer les dépendances :
 
 ```bash
-cd exercises/01-hello-world
+cd 01-hello-world
 npm install
 ```
 
@@ -109,7 +109,7 @@ Maintenant que nous avons une variable `count`, nous pouvons l'utiliser dans le 
 <Text>{count}</Text>
 ```
 
-Maintenant, créons des boutons pour contrôler le compteur. Nous utiliserons `Pressable` au lieu du composant `Button` de base car il offre de meilleures options de style et de retour visuel :
+Créons des boutons pour contrôler le compteur. Nous utiliserons `Pressable` au lieu du composant `Button` de base car il offre de meilleures options de style et de retour visuel :
 
 ```tsx
 <View>

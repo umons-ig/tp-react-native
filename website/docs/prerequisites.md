@@ -38,3 +38,23 @@ git --version
 En fonction de votre système d'exploitation, vous devrez installer différents outils. Suivez les instructions [ici](https://docs.expo.dev/get-started/set-up-your-environment/).
 
 Pour ce workshop, nous utiliserons Expo. Installez l'application Expo Go sur votre téléphone.
+
+### Clonage du projet
+
+Clonez le projet avec la commande suivante:
+
+```bash
+git clone https://github.com/Tanguyvans/tp-react-native.git
+```
+
+Ouvrez le projet avec votre environnement de développement React Native.
+
+```bash
+cd tp-react-native
+```
+
+Pour fork le projet:
+
+```bash
+git remote -v
+```
