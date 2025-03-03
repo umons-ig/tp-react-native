@@ -9,6 +9,11 @@ title: "Introduction"
 
 Bienvenue dans ce TP de React Native ! Vous allez apprendre à créer des applications mobiles natives en utilisant vos connaissances en React. Ce TP vous guidera à travers plusieurs exercices pratiques, du plus simple au plus complexe.
 
+## 📚 Ressources
+
+- Github: https://github.com/tanguyvans/tp-react-native
+- Documentation: https://tanguyvans.github.io/tp-react-native/
+
 ## 🎯 Objectifs
 
 À la fin de ce TP, vous serez capable de créer des applications mobiles complètes avec React Native. Vous maîtriserez :
