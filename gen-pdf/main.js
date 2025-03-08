@@ -6,13 +6,13 @@ const puppeteer = require('puppeteer');
 
     // Liste des URLs à capturer en PDF
     const urls = [
-        'http://localhost:3000/tp-react-native/',
-        'http://localhost:3000/tp-react-native/docs/intro',
-        'http://localhost:3000/tp-react-native/docs/prerequisites',
-        'http://localhost:3000/tp-react-native/docs/exercices/create-project',
-        'http://localhost:3000/tp-react-native/docs/exercices/hello-world',
-        'http://localhost:3000/tp-react-native/docs/exercices/devnotes',
-        'http://localhost:3000/tp-react-native/docs/exercices/devhub'
+        'https://tanguyvans.github.io/tp-react-native/',
+        'https://tanguyvans.github.io/tp-react-native/docs/intro',
+        'https://tanguyvans.github.io/tp-react-native/docs/prerequisites',
+        'https://tanguyvans.github.io/tp-react-native/docs/exercices/create-project',
+        'https://tanguyvans.github.io/tp-react-native/docs/exercices/hello-world',
+        'https://tanguyvans.github.io/tp-react-native/docs/exercices/devnotes',
+        'https://tanguyvans.github.io/tp-react-native/docs/exercices/devhub'
     ];
 
     const pdfs = [];

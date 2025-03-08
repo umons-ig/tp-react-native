@@ -115,7 +115,7 @@ Terminez le composant `NoteCard.tsx` pour qu'il affiche:
 - Le contenu de la note
 
 :::tip Conseil
-Inspirez-vous du code de l'exercice précédent pour créer le composant `NoteCard`.
+Inspirez-vous du code de l'exercice précédent pour créer le composant `NoteCard`. Pour afficher le titre de la node vous devez faire appel à `note.title`.
 :::
 
 </div>
@@ -155,6 +155,10 @@ export default function Home() {
 Dans le fichier `index.tsx`, ajoutez un `FlatList` qui fera appel au composant `NoteCard`:
 
 Pour ce faire allez dans la documentation officielle : [FlatList](https://reactnative.dev/docs/flatlist)
+
+:::tip Conseil
+Pour le renderItem, il faut faire appel au composant `NoteCard` au lieu de `Item`.
+:::
 
 </div>
 

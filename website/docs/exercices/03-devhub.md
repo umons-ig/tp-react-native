@@ -56,16 +56,7 @@ npx expo start --tunnel
 
 ## 📋 Étape 1 : Créer un projet Supabase
 
-### 1.1 Installation des dépendances
-
-Naviguez vers le dossier de l'exercice et installez les dépendances.
-
-```bash
-cd exercises/03-devhub
-npm install
-```
-
-### 1.2 Créer un projet Supabase
+### 1.1 Créer un projet Supabase
 
 Créez un nouveau projet sur [Supabase](https://supabase.com) :
 
@@ -75,7 +66,7 @@ Créez un nouveau projet sur [Supabase](https://supabase.com) :
 
 ### 1.2 Variables d'environnement
 
-Naviguez vers le dossier de l'exercice et installez les dépendances. Ensuite on va copier le fichier `.env.example` et le renommer en `.env`. C'est dans ce fichier que vous mettrez votre clé d'API Supabase.
+On va copier le fichier `.env.example` et le renommer en `.env`. C'est dans ce fichier que vous mettrez votre clé d'API Supabase.
 
 ```bash
 cp .env.example .env
@@ -90,9 +81,9 @@ EXPO_PUBLIC_SUPABASE_ANON_KEY=
 
 ### 1.3 Gestion du Login et Register
 
-Pour la gestion du login et register, nous allons utiliser le SDK de Supabase. Pour cela dans le dossier `lib` on va créer un fichier `supabase.ts` et on va y implémenter le SDK de Supabase. Dans ce dossier on retrouve nos variables d'environnement. Expo permet de faire appel à ces variables pour autant qu'elles possèdent le préfixe `EXPO_PUBLIC_`.
+Pour la gestion du login et register, nous allons utiliser le SDK de Supabase. Pour cela dans le dossier `lib` on va créer un fichier `supabase.ts`. Dans ce dossier on retrouve nos variables d'environnement. Expo permet de faire appel à ces variables pour autant qu'elles possèdent le préfixe `EXPO_PUBLIC_`.
 
-```typescript
+```typescript title="lib/supabase.ts"
 import "react-native-url-polyfill/auto";
 import { createClient } from "@supabase/supabase-js";
 
@@ -106,13 +97,9 @@ if (!supabaseUrl || !supabaseAnonKey) {
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 ```
 
-Maintenant qu'on a notre client Supabase, on va pouvoir l'utiliser dans notre application. Nous allons créer une page de login et de register dans le dossier `app/auth`.
+Maintenant qu'on a notre client Supabase, on va pouvoir l'utiliser dans notre application. Nous allons completer les pages login et register dans le dossier `app/auth`.
 
-Les deux pages auront un formulaire et un bouton pour se connecter ou se register (similaire à l'exercice 2). la nouveauté ici est que nous allons utiliser le SDK de Supabase pour gérer l'authentification.
-
-La fonction SignUp ressemble a ceci. Il manque la partie ou on appelle le SDK de Supabase pour faire le SignUp. Pour cela regardez la documentation de [Supabase](https://supabase.com/docs/reference/javascript/auth-signup).
-
-```typescript
+```typescript title="app/auth/register.tsx"
 async function signUp() {
   if (!email || !password) {
     Alert.alert("Error", "Please fill in all fields");
@@ -121,10 +108,7 @@ async function signUp() {
 
   setLoading(true);
   try {
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-    });
+    // TODO: Ajouter le SignUp avec le SDK de Supabase
 
     if (error) throw error;
 
@@ -145,9 +129,7 @@ async function signUp() {
 }
 ```
 
-Pour la fonction de connexion, il faut utiliser la fonction `signInWithPassword` de Supabase. Pour cela regardez la documentation de [Supabase](https://supabase.com/docs/reference/javascript/auth-signinwithpassword).
-
-```typescript
+```typescript title="app/auth/login.tsx"
 async function signIn() {
   if (!email || !password) {
     Alert.alert("Error", "Please fill in all fields");
@@ -156,12 +138,17 @@ async function signIn() {
 
   setLoading(true);
   try {
+    console.log("Tentative de connexion avec:", email);
     // TODO: Ajouter la connexion avec le SDK de Supabase
+
+    console.log("Réponse Supabase:", { data, error });
 
     if (error) throw error;
 
+    console.log("Connexion réussie, redirection...");
     router.replace("/(tabs)");
   } catch (error) {
+    console.error("Erreur de connexion:", error);
     Alert.alert("Error", (error as Error).message);
   } finally {
     setLoading(false);
@@ -169,13 +156,44 @@ async function signIn() {
 }
 ```
 
+<div
+  style={{
+    padding: "20px",
+  background: 'var(--ifm-background-surface-color)', 
+  border: '1px solid var(--ifm-color-emphasis-300)',
+  borderRadius: '8px',
+  marginTop: '24px',
+  marginBottom: '24px',
+  boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
+}}>
+
+### 🎯 Tâche
+
+Completer le script `login` et le script `register` pour qu'ils utilisent le SDK de Supabase pour faire le SignUp et le SignIn:
+
+- Importer le script `supabase.ts` dans `login` et `register`.
+- Ajoutez les textInput pour l'email et le mot de passe. assurez vous que le mot de passe soit masqué.
+- Completez la fonction `signUp` en utilisant la fonction `signUp`: [Documentation](https://supabase.com/docs/reference/javascript/auth-signup)
+- Completez la fonction `signIn` en utilisant la fonction `signInWithPassword`: [Documentation](https://supabase.com/docs/reference/javascript/auth-signinwithpassword).
+
+:::tip Conseil
+Pour cacher le mot de passe, vous pouvez utiliser le composant `TextInput` avec l'attribut `secureTextEntry`.
+:::
+
+</div>
+
 ### 1.4 Gestion du Layout
 
 L'application aura 2 layouts. Le layout qui se trouve dans le dossier `app` est le layout racine de l'application. Il est utilisé pour l'authentification et le layout `(tabs)/_layout.tsx` sera utilisé pour les onglets (trending et recherche).
 
 Le premier layout est le suivant. Il permet de rediriger l'utilisateur vers la page de login si il n'est pas connecté et vers la page des onglets si il est connecté. Pour cela la variable session est utilisée.
 
-```typescript
+```typescript title="app/_layout.tsx"
+import { useEffect, useState } from "react";
+import { Slot, useRouter, useSegments } from "expo-router";
+import { supabase } from "../lib/supabase";
+import { Session } from "@supabase/supabase-js";
+
 export default function RootLayout() {
   const [session, setSession] = useState<Session | null>(null);
   const segments = useSegments();
@@ -209,7 +227,12 @@ export default function RootLayout() {
 
 Le deuxième layout est le suivant. Il permet de gérer les onglets (trending et recherche).
 
-```typescript
+```typescript title="app/(tabs)/_layout.tsx"
+import { Tabs } from "expo-router";
+import { Ionicons } from "@expo/vector-icons";
+import { TouchableOpacity, Alert } from "react-native";
+import { useRouter } from "expo-router";
+
 export default function TabsLayout() {
   const router = useRouter();
 
@@ -259,9 +282,9 @@ export default function TabsLayout() {
 
 ## 🔐 Étape 2 : API GitHub
 
-Dans la page Home, on affiche la liste des repositories trending. Pour cela on utilise l'API de GitHub. Dans le dossier `lib` on peut voir le fichier `github.ts` qui contient la configuration de l'API GitHub.
+Dans la page Home, on veut afficher la liste des repositories trending. Pour cela faut récupérer les repositories trending avec l'API de GitHub. Dans le dossier `lib` on peut voir le fichier `github.ts` qui contient la configuration de l'API GitHub.
 
-Dans ce dossier on retrouve les informations que l'on recupère:
+Dans ce dossier on retrouve le type `Repository` qui représente un repository GitHub.
 
 ```typescript
 type Repository = {
@@ -294,86 +317,46 @@ export const github = {
 };
 ```
 
-### 2.1 Récupérer les repositories trending
+Dans le fichier `app/(tabs)/index.tsx` on va récupérer et afficher les repositories trending.
 
-Pour récupérer les repositories trending, on utilise la fonction `getTrendingRepos` qui fait une requête à l'API de GitHub. Dans le fichier `app/(tabs)/index.tsx` on peut voir la fonction `loadTrendingRepos` qui permet de récupérer les repositories trending.
+<div
+  style={{
+    padding: "20px",
+  background: 'var(--ifm-background-surface-color)', 
+  border: '1px solid var(--ifm-color-emphasis-300)',
+  borderRadius: '8px',
+  marginTop: '24px',
+  marginBottom: '24px',
+  boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
+}}>
 
-```typescript
-async function loadTrendingRepos() {
-  try {
-    // TODO: Récupérer les repositories trending
-    // Mettre à jour la variable repos avec les repositories trending
-  } catch (error) {
-    console.error("Error:", error);
-  } finally {
-    setLoading(false);
-  }
-}
-```
+### 🎯 Tâche
 
-:::tip
+Dans le fichier `app/(tabs)/index.tsx` on doit récupérer les repositories trending et les afficher avec une FlatList:
 
-Pour récupérer les repositories trending, on utilise la fonction `getTrendingRepos` qui fait une requête à l'API de GitHub. Ensuite il faut mettre à jour le useState `repos` avec les repositories trending.
-
-:::
-
-### 2.2 Afficher les repositories trending
-
-Toujours dans le fichier `app/(tabs)/index.tsx` on peut voir la fonction `useRepos` qui permet de récupérer les repositories trending.
-
-```typescript
-return (
-  <SafeAreaView style={styles.container}>
-    // TODO: Afficher les repositories trending avec une FlatList
-  </SafeAreaView>
-);
-```
-
-:::tip
-
-Pour afficher les repositories trending, on utilise une FlatList. Vous pouvez soit utiliser le composant `RepoCard` ou créer votre propre composant ou utiliser des variables Text et View.
-
-:::
+- Récupérer les repositories trending avec la fonction `getTrendingRepos`. Pour cela faites appel à la fonction `getTrendingRepos` et mettez à jour le useState `repos` avec les repositories trending.
+- Afficher les repositories trending avec une FlatList. Vous pouvez soit utiliser le composant `RepoCard` ou créer votre propre composant ou utiliser des variables Text et View.
+</div>
 
 ## 🔐 Étape 3 : Recherche de repositories
 
-Similaire à l'étape 2, on va ajouter une fonction pour rechercher des repositories. Dans le fichier `app/(tabs)/search.tsx` on peut voir la fonction `searchRepos` qui permet de rechercher des repositories.
+Dans le fichier `app/(tabs)/search.tsx` on va ajouter une fonction pour rechercher des repositories.
 
-```typescript
-export default function SearchScreen() {
-  const [query, setQuery] = useState("");
-  const [repos, setRepos] = useState<Repository[]>([]);
-  const [loading, setLoading] = useState(false);
+<div
+  style={{
+    padding: "20px",
+  background: 'var(--ifm-background-surface-color)', 
+  border: '1px solid var(--ifm-color-emphasis-300)',
+  borderRadius: '8px',
+  marginTop: '24px',
+  marginBottom: '24px',
+  boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
+}}>
 
-  async function searchRepos() {
-    if (!query.trim()) return;
+### 🎯 Tâche
 
-    setLoading(true);
-    try {
-      // TODO: Rechercher des repositories avec la fonction `searchRepos`
-    } catch (error) {
-      console.error("Error:", error);
-    } finally {
-      setLoading(false);
-    }
-  }
+Dans le fichier `app/(tabs)/search.tsx` on doit récupérer les repositories recherchés et les afficher avec une FlatList:
 
-  return (
-    <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        value={query}
-        onChangeText={setQuery}
-        onSubmitEditing={searchRepos}
-        placeholder="Search repositories..."
-        returnKeyType="search"
-      />
-      {loading ? (
-        <ActivityIndicator style={styles.center} size="large" />
-      ) : (
-        // TODO: Afficher les repositories recherchés avec une FlatList
-      )}
-    </View>
-  );
-}
-```
+- Récupérer les repositories trending avec la fonction `getTrendingRepos`. Pour cela faites appel à la fonction `getTrendingRepos` et mettez à jour le useState `repos` avec les repositories trending.
+- Afficher les repositories trending avec une FlatList. Vous pouvez soit utiliser le composant `RepoCard` ou créer votre propre composant ou utiliser des variables Text et View.
+</div>

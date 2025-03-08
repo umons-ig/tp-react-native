@@ -41,11 +41,11 @@ export default function SearchScreen() {
       {loading ? (
         <ActivityIndicator style={styles.center} size="large" />
       ) : (
-        <FlatList
-          data={[]} // TODO: Remplacer par les repositories recherchés
-          renderItem={() => null} // TODO: Remplacer par le composant RepoCard
-          keyExtractor={() => ''} // TODO: Remplacer par l'id du repository
-        />
+          <FlatList
+            data={[]} // TODO: Remplacer par les repositories recherchés
+            renderItem={() => null} // TODO: Remplacer par le composant RepoCard
+            keyExtractor={() => ''} // TODO: Remplacer par l'id du repository
+          />
       )}
     </View>
   );

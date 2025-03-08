@@ -8,7 +8,6 @@ import {
   Alert 
 } from 'react-native';
 import { Link, useRouter } from 'expo-router';
-import { supabase } from '../../lib/supabase';
 
 export default function RegisterScreen() {
   const [email, setEmail] = useState('');
@@ -24,22 +23,9 @@ export default function RegisterScreen() {
     <View style={styles.container}>
       <Text style={styles.title}>Register</Text>
       
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-        autoCapitalize="none"
-        keyboardType="email-address"
-      />
+      {/* TODO: Ajouter un input pour l'email */}
 
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-      />
+      {/* TODO: Ajouter un input pour le mot de passe */}
 
       <Pressable 
         style={[styles.button, loading && styles.buttonDisabled]}

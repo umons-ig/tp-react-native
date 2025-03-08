@@ -8,7 +8,6 @@ import {
   Alert 
 } from 'react-native';
 import { Link, useRouter } from 'expo-router';
-import { supabase } from '../../lib/supabase';
 
 export default function LoginScreen() {
   const [email, setEmail] = useState('');
@@ -23,21 +22,9 @@ export default function LoginScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Login</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-        autoCapitalize="none"
-      />
+      {/* TODO: Ajouter un input pour l'email */}
 
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-      />
+      {/* TODO: Ajouter un input pour le mot de passe */}
 
       <Pressable 
         style={styles.button}
