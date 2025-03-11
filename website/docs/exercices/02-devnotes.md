@@ -218,6 +218,29 @@ export default function NoteCard({ note }: Props) {
 }
 ```
 
+Une autre façon de faire est d'ajouter la fonction `handlePress` dans le composant `NoteCard.tsx` et de faire appel à `router.push` pour naviguer vers la page de détail d'une note. De cette manière, nous pouvons passer les données de la note en paramètre.
+
+```typescript title="NoteCard.tsx"
+const handlePress = () => {
+  // Utiliser le format correct pour la navigation
+  router.push({
+    pathname: "/notes/[id]",
+    params: {
+      id: note.id,
+      note: JSON.stringify(note),
+    },
+  });
+};
+```
+
+Ensuite pour récupérer les données de la note, il faut faire:
+
+```typescript title="app/notes/[id].tsx"
+const { id, note } = useLocalSearchParams();
+
+const noteData: Note = note ? JSON.parse(note as string) : null;
+```
+
 <div style={{ 
   padding: '20px', 
   background: 'var(--ifm-background-surface-color)', 
@@ -392,3 +415,28 @@ Pour ajouter un lien, il suffit d'utiliser le composant `Link` de `expo-router`.
 ### 4.3 Configuration du routage
 
 Comme nous avons créé une nouvelle page, il faut la rendre accessible. Pour cela, il faut ajouter la page dans le layout. Inspirez-vous du code du layout pour ajouter la page.
+
+<div style={{ 
+  padding: '20px', 
+  background: 'var(--ifm-background-surface-color)', 
+  border: '1px solid var(--ifm-color-emphasis-300)',
+  borderRadius: '8px',
+  marginTop: '24px',
+  marginBottom: '24px',
+  boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
+}}>
+
+### 🎯 Tâche
+
+Nous allons maintenant regarder pour embellir l'application. Ajouter des Images dans la page de création de note. et une alerte de succès lorsque la note est créée.
+
+- Utilisez la documentation officielle pour comprendre comment utiliser les images : [Image](https://reactnative.dev/docs/image)
+
+- Ajouter une alerte de succès lorsque la note est créée: [Alert](https://reactnative.dev/docs/alert)
+
+:::tip Conseil
+Pour l'image, il faut utiliser le composant `Image` de `react-native`.
+Pour l'alerte, il faut utiliser le composant `Alert` de `react-native`.
+:::
+
+</div>
