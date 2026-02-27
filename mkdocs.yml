@@ -1,0 +1,50 @@
+site_name: TP React Native
+site_url: https://umons-ig.github.io/tp-react-native/
+repo_url: https://github.com/umons-ig/tp-react-native
+repo_name: umons-ig/tp-react-native
+
+theme:
+  name: material
+  language: fr
+  palette:
+    - scheme: default
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/brightness-7
+        name: Mode sombre
+    - scheme: slate
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/brightness-4
+        name: Mode clair
+  features:
+    - navigation.sections
+    - navigation.expand
+    - content.code.copy
+    - content.code.annotate
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.tabbed:
+      alternate_style: true
+  - tables
+  - attr_list
+  - md_in_html
+
+nav:
+  - Introduction: index.md
+  - Prérequis: prerequisites.md
+  - Exercices:
+      - "Exercice 0 : Créer un projet": exercices/00-create-project.md
+      - "Exercice 1 : Hello World": exercices/01-hello-world.md
+      - "Exercice 2 : DevNotes": exercices/02-devnotes.md
+      - "Exercice 3 : DevHub": exercices/03-devhub.md
+
+copyright: Copyright &copy; 2025 Tanguy Vansnick

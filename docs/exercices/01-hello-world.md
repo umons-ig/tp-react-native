@@ -1,33 +1,23 @@
----
-sidebar_position: 3
-title: "Exercice 1 : Hello World"
----
-
 # Hello World
 
-## 🎯 Objectifs
+## Objectifs
 
 Dans ce premier exercice, vous apprendrez à :
 
 | Compétence   | Description                                                                |
 | ------------ | -------------------------------------------------------------------------- |
-| 📱 Interface | Créer une interface utilisateur structurée avec en-tête et zone de contenu |
-| 🔄 État      | Gérer l'état local avec useState pour un compteur interactif               |
-| 💅 Style     | Appliquer des styles professionnels et créer des composants réutilisables  |
-| 🎨 Design    | Implémenter des retours visuels et des animations de pression              |
+| Interface    | Créer une interface utilisateur structurée avec en-tête et zone de contenu |
+| État         | Gérer l'état local avec useState pour un compteur interactif               |
+| Style        | Appliquer des styles professionnels et créer des composants réutilisables  |
+| Design       | Implémenter des retours visuels et des animations de pression              |
 
 Voici à quoi ressemblera votre application finale :
 
 <div align="center">
-  <img
-    src={require('@site/static/img/01-app.png').default}
-    alt="Application Hello World"
-    width={300}
-    style={{ margin: '20px 0' }}
-  />
+  <img src="../img/01-app.png" alt="Application Hello World" width="300" />
 </div>
 
-## 📋 Étape 1 : Lancer le projet
+## Étape 1 : Lancer le projet
 
 Commencez par naviguer vers le dossier de l'exercice et installer les dépendances :
 
@@ -42,16 +32,14 @@ Puis lancez le projet :
 npx expo start
 ```
 
-:::info
-Si vous rencontrez des problèmes de connexion, essayez de lancer le projet avec le tunnel :
+!!! info
+    Si vous rencontrez des problèmes de connexion, essayez de lancer le projet avec le tunnel :
 
-```bash
-npx expo start --tunnel
-```
+    ```bash
+    npx expo start --tunnel
+    ```
 
-:::
-
-## 📱 Étape 2 : Créer la page Hello World
+## Étape 2 : Créer la page Hello World
 
 Votre projet tourne, mais il est vide. Ajoutons une page simple avec un composant texte. Allez dans le fichier `app/index.tsx` et ajoutez le code suivant :
 
@@ -67,7 +55,7 @@ export default function Page() {
 }
 ```
 
-## 🔄 Étape 3 : Ajouter un compteur
+## Étape 3 : Ajouter un compteur
 
 Ajoutons de l'interactivité à notre application avec un compteur. Nous utiliserons le hook `useState` pour gérer l'état du compteur. Le hook `useState` permet de suivre les valeurs qui peuvent changer au fil du temps.
 
@@ -94,14 +82,11 @@ export default function Page() {
 }
 ```
 
-:::info
+!!! info
+    `SafeAreaView` automatiquement ajoute un padding pour éviter que le contenu soit masqué par :
 
-`SafeAreaView` automatiquement ajoute un padding pour éviter que le contenu soit masqué par :
-
-- Les trous noirs sur les iPhones
-- Les coins arrondis
-
-:::
+    - Les trous noirs sur les iPhones
+    - Les coins arrondis
 
 Maintenant que nous avons une variable `count`, nous pouvons l'utiliser dans le composant `Text` :
 
@@ -127,32 +112,19 @@ Il est possible d'utiliser le composant `Button` de base, mais il ne permet pas 
 </View>
 ```
 
-<div style={{ 
-  padding: '20px', 
-  background: 'var(--ifm-background-surface-color)', 
-  border: '1px solid var(--ifm-color-emphasis-300)',
-  borderRadius: '8px',
-  marginTop: '24px',
-  marginBottom: '24px',
-  boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
-}}>
+!!! example "Tâche"
+    Créez un bouton de decrementation qui :
 
-### 🎯 Tâche
+    - Décrémente le compteur lorsqu'il est pressé
+    - Utilise le composant `Pressable`
+    - Utilise `Math.max(0, prev - 1)` pour éviter que le compteur soit négatif
 
-Créez un bouton de decrementation qui :
+    Créez un bouton de réinitialisation qui :
 
-- Décrémente le compteur lorsqu'il est pressé
-- Utilise le composant `Pressable`
-- Utilise `Math.max(0, prev - 1)` pour éviter que le compteur soit négatif
+    - Réinitialise le compteur à 0 lorsqu'il est pressé
+    - Utilise le composant `Pressable`
 
-Créez un bouton de réinitialisation qui :
-
-- Réinitialise le compteur à 0 lorsqu'il est pressé
-- Utilise le composant `Pressable`
-
-</div>
-
-## 🎨 Étape 4 : Appliquer des styles à l'application
+## Étape 4 : Appliquer des styles à l'application
 
 Ajoutons des styles à notre application étape par étape :
 
@@ -281,21 +253,8 @@ Dans notre application de compteur, nous utilisons ceci pour créer différentes
 
 Le second style dans le tableau remplacera les propriétés en double du premier style.
 
-<div style={{ 
-  padding: '20px', 
-  background: 'var(--ifm-background-surface-color)', 
-  border: '1px solid var(--ifm-color-emphasis-300)',
-  borderRadius: '8px',
-  marginTop: '24px',
-  marginBottom: '24px',
-  boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
-}}>
-
-### 🎯 Essayez-vous-même !
-
-1. Ajoutez les styles aux composants corrects
-2. Créez une nouvelle variation de bouton avec une couleur différente
-3. Essayez de combiner trois ou plus de styles
-4. Créez un état sélectionné pour les boutons
-
-</div>
+!!! example "Essayez-vous-même !"
+    1. Ajoutez les styles aux composants corrects
+    2. Créez une nouvelle variation de bouton avec une couleur différente
+    3. Essayez de combiner trois ou plus de styles
+    4. Créez un état sélectionné pour les boutons

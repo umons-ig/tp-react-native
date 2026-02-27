@@ -1,36 +1,23 @@
----
-sidebar_position: 4
-title: "Exercice 3 : DevHub"
----
-
 # DevHub
 
-## 🎯 Objectifs
+## Objectifs
 
 Dans cet exercice, vous apprendrez à :
 
 | Compétence | Description                                            |
 | ---------- | ------------------------------------------------------ |
-| 🔐 Auth    | Implémenter l'authentification avec GitHub             |
-| 📡 API     | Intégrer l'API GitHub et Supabase                      |
-| 🔄 État    | Synchroniser les données entre le client et le serveur |
+| Auth       | Implémenter l'authentification avec GitHub             |
+| API        | Intégrer l'API GitHub et Supabase                      |
+| État       | Synchroniser les données entre le client et le serveur |
 
 Voici à quoi ressemblera votre application finale :
 
-<div style={{ display: 'flex', justifyContent: 'center', gap: '20px', margin: '20px 0' }}>
-  <img
-    src={require('/img/03-01-app.png').default}
-    alt="DevHub App - Login"
-    width={300}
-  />
-  <img
-    src={require('/img/03-02-app.png').default}
-    alt="DevHub App - Trending"
-    width={300}
-  />
+<div style="display: flex; justify-content: center; gap: 20px; margin: 20px 0;">
+  <img src="../img/03-01-app.png" alt="DevHub App - Login" width="300" />
+  <img src="../img/03-02-app.png" alt="DevHub App - Trending" width="300" />
 </div>
 
-## 📋 Étape 0 : Lancer le projet
+## Étape 0 : Lancer le projet
 
 Commencez par naviguer vers le dossier de l'exercice et installer les dépendances :
 
@@ -45,16 +32,14 @@ Puis lancez le projet :
 npx expo start
 ```
 
-:::info
-Si vous rencontrez des problèmes de connexion, essayez de lancer le projet avec le tunnel :
+!!! info
+    Si vous rencontrez des problèmes de connexion, essayez de lancer le projet avec le tunnel :
 
-```bash
-npx expo start --tunnel
-```
+    ```bash
+    npx expo start --tunnel
+    ```
 
-:::
-
-## 📋 Étape 1 : Créer un projet Supabase
+## Étape 1 : Créer un projet Supabase
 
 ### 1.1 Créer un projet Supabase
 
@@ -156,31 +141,16 @@ async function signIn() {
 }
 ```
 
-<div
-  style={{
-    padding: "20px",
-  background: 'var(--ifm-background-surface-color)', 
-  border: '1px solid var(--ifm-color-emphasis-300)',
-  borderRadius: '8px',
-  marginTop: '24px',
-  marginBottom: '24px',
-  boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
-}}>
+!!! example "Tâche"
+    Completer le script `login` et le script `register` pour qu'ils utilisent le SDK de Supabase pour faire le SignUp et le SignIn:
 
-### 🎯 Tâche
+    - Importer le script `supabase.ts` dans `login` et `register`.
+    - Ajoutez les textInput pour l'email et le mot de passe. assurez vous que le mot de passe soit masqué.
+    - Completez la fonction `signUp` en utilisant la fonction `signUp`: [Documentation](https://supabase.com/docs/reference/javascript/auth-signup)
+    - Completez la fonction `signIn` en utilisant la fonction `signInWithPassword`: [Documentation](https://supabase.com/docs/reference/javascript/auth-signinwithpassword).
 
-Completer le script `login` et le script `register` pour qu'ils utilisent le SDK de Supabase pour faire le SignUp et le SignIn:
-
-- Importer le script `supabase.ts` dans `login` et `register`.
-- Ajoutez les textInput pour l'email et le mot de passe. assurez vous que le mot de passe soit masqué.
-- Completez la fonction `signUp` en utilisant la fonction `signUp`: [Documentation](https://supabase.com/docs/reference/javascript/auth-signup)
-- Completez la fonction `signIn` en utilisant la fonction `signInWithPassword`: [Documentation](https://supabase.com/docs/reference/javascript/auth-signinwithpassword).
-
-:::tip Conseil
-Pour cacher le mot de passe, vous pouvez utiliser le composant `TextInput` avec l'attribut `secureTextEntry`.
-:::
-
-</div>
+    !!! tip "Conseil"
+        Pour cacher le mot de passe, vous pouvez utiliser le composant `TextInput` avec l'attribut `secureTextEntry`.
 
 ### 1.4 Gestion du Layout
 
@@ -280,7 +250,7 @@ export default function TabsLayout() {
 }
 ```
 
-## 🔐 Étape 2 : API GitHub
+## Étape 2 : API GitHub
 
 Dans la page Home, on veut afficher la liste des repositories trending. Pour cela faut récupérer les repositories trending avec l'API de GitHub. Dans le dossier `lib` on peut voir le fichier `github.ts` qui contient la configuration de l'API GitHub.
 
@@ -319,44 +289,18 @@ export const github = {
 
 Dans le fichier `app/(tabs)/index.tsx` on va récupérer et afficher les repositories trending.
 
-<div
-  style={{
-    padding: "20px",
-  background: 'var(--ifm-background-surface-color)', 
-  border: '1px solid var(--ifm-color-emphasis-300)',
-  borderRadius: '8px',
-  marginTop: '24px',
-  marginBottom: '24px',
-  boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
-}}>
+!!! example "Tâche"
+    Dans le fichier `app/(tabs)/index.tsx` on doit récupérer les repositories trending et les afficher avec une FlatList:
 
-### 🎯 Tâche
+    - Récupérer les repositories trending avec la fonction `getTrendingRepos`. Pour cela faites appel à la fonction `getTrendingRepos` et mettez à jour le useState `repos` avec les repositories trending.
+    - Afficher les repositories trending avec une FlatList. Vous pouvez soit utiliser le composant `RepoCard` ou créer votre propre composant ou utiliser des variables Text et View.
 
-Dans le fichier `app/(tabs)/index.tsx` on doit récupérer les repositories trending et les afficher avec une FlatList:
-
-- Récupérer les repositories trending avec la fonction `getTrendingRepos`. Pour cela faites appel à la fonction `getTrendingRepos` et mettez à jour le useState `repos` avec les repositories trending.
-- Afficher les repositories trending avec une FlatList. Vous pouvez soit utiliser le composant `RepoCard` ou créer votre propre composant ou utiliser des variables Text et View.
-</div>
-
-## 🔐 Étape 3 : Recherche de repositories
+## Étape 3 : Recherche de repositories
 
 Dans le fichier `app/(tabs)/search.tsx` on va ajouter une fonction pour rechercher des repositories.
 
-<div
-  style={{
-    padding: "20px",
-  background: 'var(--ifm-background-surface-color)', 
-  border: '1px solid var(--ifm-color-emphasis-300)',
-  borderRadius: '8px',
-  marginTop: '24px',
-  marginBottom: '24px',
-  boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
-}}>
+!!! example "Tâche"
+    Dans le fichier `app/(tabs)/search.tsx` on doit récupérer les repositories recherchés et les afficher avec une FlatList:
 
-### 🎯 Tâche
-
-Dans le fichier `app/(tabs)/search.tsx` on doit récupérer les repositories recherchés et les afficher avec une FlatList:
-
-- Récupérer les repositories trending avec la fonction `getTrendingRepos`. Pour cela faites appel à la fonction `getTrendingRepos` et mettez à jour le useState `repos` avec les repositories trending.
-- Afficher les repositories trending avec une FlatList. Vous pouvez soit utiliser le composant `RepoCard` ou créer votre propre composant ou utiliser des variables Text et View.
-</div>
+    - Récupérer les repositories trending avec la fonction `getTrendingRepos`. Pour cela faites appel à la fonction `getTrendingRepos` et mettez à jour le useState `repos` avec les repositories trending.
+    - Afficher les repositories trending avec une FlatList. Vous pouvez soit utiliser le composant `RepoCard` ou créer votre propre composant ou utiliser des variables Text et View.

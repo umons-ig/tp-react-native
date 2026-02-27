@@ -1,8 +1,3 @@
----
-sidebar_position: 2
-title: "Prérequis"
----
-
 # Prérequis
 
 Avant de commencer les exercices, assurez-vous d'avoir installé les outils et logiciels suivants sur votre machine.
@@ -44,7 +39,7 @@ Pour ce workshop, nous utiliserons Expo. Installez l'application Expo Go sur vot
 Clonez le projet avec la commande suivante:
 
 ```bash
-git clone https://github.com/Tanguyvans/tp-react-native.git
+git clone https://github.com/umons-ig/tp-react-native.git
 ```
 
 Ouvrez le projet avec votre environnement de développement React Native.
