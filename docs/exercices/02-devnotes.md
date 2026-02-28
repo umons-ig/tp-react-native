@@ -15,10 +15,8 @@ Dans cet exercice, vous apprendrez à :
 
 Voici à quoi ressemblera votre app :
 
-<div style="display: flex; justify-content: center; gap: 20px; margin: 20px 0;">
-  <img src="../img/02-01-app.png" alt="DevNotes App - Liste des notes" width="300" />
-  <img src="../img/02-02-app.png" alt="DevNotes App - Création d'une note" width="300" />
-</div>
+![DevNotes App - Liste des notes](../img/02-01-app.png){ width="300" }
+![DevNotes App - Création d'une note](../img/02-02-app.png){ width="300" }
 
 ## Étape 0 : Lancer le projet
 

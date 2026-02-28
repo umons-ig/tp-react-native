@@ -12,10 +12,8 @@ Dans cet exercice, vous apprendrez à :
 
 Voici à quoi ressemblera votre application finale :
 
-<div style="display: flex; justify-content: center; gap: 20px; margin: 20px 0;">
-  <img src="../img/03-01-app.png" alt="DevHub App - Login" width="300" />
-  <img src="../img/03-02-app.png" alt="DevHub App - Trending" width="300" />
-</div>
+![DevHub App - Login](../img/03-01-app.png){ width="300" }
+![DevHub App - Trending](../img/03-02-app.png){ width="300" }
 
 ## Étape 0 : Lancer le projet
 

@@ -13,9 +13,7 @@ Dans ce premier exercice, vous apprendrez à :
 
 Voici à quoi ressemblera votre application finale :
 
-<div align="center">
-  <img src="../img/01-app.png" alt="Application Hello World" width="300" />
-</div>
+![Application Hello World](../img/01-app.png){ width="300" }
 
 ## Étape 1 : Lancer le projet
 
