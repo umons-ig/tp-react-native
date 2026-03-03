@@ -521,6 +521,7 @@ def main():
     add_cover_page(flowables, styles)
 
     sections = [
+        "docs/index.md",
         "docs/prerequisites.md",
         "docs/exercices/00-create-project.md",
         "docs/exercices/01-hello-world.md",
