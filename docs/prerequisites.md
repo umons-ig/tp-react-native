@@ -6,18 +6,58 @@ Avant de commencer les exercices, assurez-vous d'avoir installé les outils et l
 
 ### Node.js
 
-Vérifiez que vous avez bien la version 22.14.0 ou une version supérieure installée:
+Vérifiez que vous avez bien la version 22 ou une version supérieure installée:
 
 ```bash
 node -v
 ```
 
-Si vous n'avez pas Node.js installé, vous pouvez le télécharger [ici](https://nodejs.org/fr/download). Je recommande d'installer `nvm` (Node Version Manager). `nvm` est un outil qui vous permet d'installer et de gérer différentes versions de Node.js. Pour ce workshop, nous utiliserons la version 22.14.0.
+Si vous n'avez pas Node.js installé, vous pouvez le télécharger [ici](https://nodejs.org/en/download).
 
-Si vous avez déjà nvm installé, vous pouvez l'installer avec:
+#### Installation sur Windows
+
+Installez [`fnm`](https://github.com/Schniz/fnm) (Fast Node Manager) via PowerShell :
+
+```powershell
+# Install fnm (Fast Node Manager):
+winget install Schniz.fnm
+
+# Set up fnm in PowerShell profile:
+if (-not (Test-Path $profile)) { New-Item $profile -Force }
+Add-Content $profile 'fnm env --use-on-cd --shell powershell | Out-String | Invoke-Expression'
+
+# Reload profile:
+. $profile
+
+# Download and install Node.js:
+fnm install 22
+
+# Verify the Node.js version:
+node -v # Should print "v22.22.0".
+
+# Verify npm version:
+npm -v # Should print "10.9.4".
+```
+
+#### Installation sur macOS
+
+Installez `nvm` (Node Version Manager) :
 
 ```bash
-nvm install 22.14.0
+# Download and install nvm:
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash
+
+# in lieu of restarting the shell
+\. "$HOME/.nvm/nvm.sh"
+
+# Download and install Node.js:
+nvm install 22
+
+# Verify the Node.js version:
+node -v # Should print "v22.22.0".
+
+# Verify npm version:
+npm -v # Should print "10.9.4".
 ```
 
 ### Git
