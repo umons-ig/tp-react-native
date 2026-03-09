@@ -1,4 +1,5 @@
-import { View, FlatList, StyleSheet, Pressable, Text } from 'react-native';
+import { FlatList, StyleSheet, Pressable, Text } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Link, useRouter } from 'expo-router';
 import { useState, useEffect } from 'react';
 import NoteCard from '../components/NoteCard';
@@ -47,10 +48,10 @@ export default function Home() {
   }, []);
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       {/* TODO: Ajouter un composant NoteCard pour chaque note */}
       {/* TODO: Ajouter un bouton pour créer une nouvelle note */}
-    </View>
+    </SafeAreaView>
   );
 }
 
