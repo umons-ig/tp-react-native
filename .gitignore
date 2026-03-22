@@ -1,3 +1,5 @@
 node_modules/
 .env
 site/
+
+04-devwallet-sol/

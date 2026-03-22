@@ -46,5 +46,6 @@ nav:
       - "Exercice 1 : Hello World": exercices/01-hello-world.md
       - "Exercice 2 : DevNotes": exercices/02-devnotes.md
       - "Exercice 3 : DevHub": exercices/03-devhub.md
+      - "Exercice 4 : DevWallet": exercices/04-devwallet.md
 
 copyright: Copyright &copy; 2025 Tanguy Vansnick
