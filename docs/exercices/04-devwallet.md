@@ -145,19 +145,26 @@ Dans `app/(tabs)/index.tsx`, on veut afficher la liste des transactions et perme
 Dans `components/TransactionCard.tsx`, le composant reçoit une transaction et un callback `onDelete`. Les styles sont déjà définis.
 
 !!! example "Tâche"
-    Complétez le composant `TransactionCard` :
+    Complétez le composant `TransactionCard` à l'intérieur de la `View style={styles.card}` :
 
-    - Créez une variable `isIncome` pour vérifier si `transaction.type === 'income'`.
-    - Dans une `View` avec le style `info`, affichez la description, la catégorie et la date.
-    - Affichez le montant avec un `+` pour les revenus et un `-` pour les dépenses.
-    - Ajoutez un `Pressable` de suppression qui appelle `onDelete(transaction.id)`.
+    1. Déclarez une constante pour savoir si c'est un revenu :
+    ```typescript
+    const isIncome = transaction.type === 'income';
+    ```
 
-    !!! tip "Conseil"
-        Utilisez la composition de styles pour changer la couleur du montant :
-        ```typescript
-        <Text style={[styles.amount, isIncome ? styles.income : styles.expense]}>
-          {isIncome ? '+' : '-'}{transaction.amount.toFixed(2)} €
-        </Text>
+    2. Ajoutez une `View` avec le style `info` contenant 3 `Text` :
+        - `transaction.description` avec le style `styles.description`
+        - `transaction.category` avec le style `styles.category`
+        - `transaction.date` avec le style `styles.date`
+
+    3. Affichez le montant avec la couleur qui dépend du type (vert pour revenu, rouge pour dépense) :
+    ```typescript
+    <Text style={[styles.amount, isIncome ? styles.income : styles.expense]}>
+      {isIncome ? '+' : '-'}{transaction.amount.toFixed(2)} €
+    </Text>
+    ```
+
+    4. Ajoutez un `Pressable` de suppression avec le style `deleteBtn` qui appelle `onDelete(transaction.id)` au `onPress`. Affichez le texte `×` avec le style `deleteText`.
         ```
 
 ## Étape 4 : Formulaire d'ajout
