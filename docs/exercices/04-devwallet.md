@@ -47,7 +47,7 @@ Le fichier `lib/database.ts` contient la configuration de la base de données SQ
 
 ### 1.1 L'API expo-sqlite
 
-L'API de `expo-sqlite` fournit trois méthodes principales pour interagir avec la base de données :
+L'API de `expo-sqlite` fournit deux méthodes principales pour interagir avec la base de données :
 
 ```typescript
 // Lire des données (SELECT) — retourne un tableau de résultats
@@ -62,23 +62,49 @@ await database.runAsync('INSERT INTO table (col1, col2) VALUES (?, ?)', [val1, v
 
 ### 1.2 Fonctions à compléter
 
+Chaque fonction doit d'abord récupérer la base de données avec `getDatabase()`, puis exécuter une requête SQL.
+
+Voici un exemple complet pour la première fonction :
+
+```typescript title="lib/database.ts"
+export async function getTransactions(): Promise<Transaction[]> {
+  const database = await getDatabase();
+  return await database.getAllAsync<Transaction>(
+    'SELECT * FROM transactions ORDER BY date DESC'
+  );
+}
+```
+
 !!! example "Tâche"
-    Complétez les 5 fonctions dans `lib/database.ts` :
+    En suivant le même pattern, complétez les 4 fonctions restantes :
 
-    - **`getTransactions()`** : récupérer toutes les transactions triées par date décroissante (`ORDER BY date DESC`).
-    - **`addTransaction()`** : insérer une nouvelle transaction avec les 5 colonnes (amount, description, category, type, date).
-    - **`deleteTransaction()`** : supprimer une transaction par son `id`.
-    - **`getBalance()`** : calculer le total des revenus et des dépenses. Utilisez `SUM(amount)` combiné avec `GROUP BY type` pour obtenir un total par type.
-    - **`getTotalsByCategory()`** : calculer le total des dépenses par catégorie. Filtrez uniquement les dépenses (`WHERE type = 'expense'`), puis regroupez par catégorie avec `GROUP BY`.
+    **`addTransaction()`** — Insérer une nouvelle transaction :
+    ```sql
+    INSERT INTO transactions (amount, description, category, type, date) VALUES (?, ?, ?, ?, ?)
+    ```
+    Utilisez `database.runAsync()` avec un tableau contenant les valeurs : `[transaction.amount, transaction.description, ...]`.
 
-    !!! tip "Conseil pour getBalance()"
-        La requête retourne un tableau avec une entrée par type. Parcourez le résultat pour extraire le total de chaque type :
-        ```typescript
-        for (const row of result) {
-          if (row.type === 'income') income = row.total;
-          if (row.type === 'expense') expenses = row.total;
-        }
-        ```
+    **`deleteTransaction()`** — Supprimer une transaction par son id :
+    ```sql
+    DELETE FROM transactions WHERE id = ?
+    ```
+
+    **`getBalance()`** — Calculer le total par type (income/expense) :
+    ```sql
+    SELECT type, SUM(amount) as total FROM transactions GROUP BY type
+    ```
+    Cette requête retourne un tableau avec une entrée par type. Parcourez le résultat pour extraire le total de chaque type :
+    ```typescript
+    for (const row of result) {
+      if (row.type === 'income') income = row.total;
+      if (row.type === 'expense') expenses = row.total;
+    }
+    ```
+
+    **`getTotalsByCategory()`** — Calculer le total des dépenses par catégorie :
+    ```sql
+    SELECT category, SUM(amount) as total FROM transactions WHERE type = 'expense' GROUP BY category ORDER BY total DESC
+    ```
 
 ## Étape 2 : Liste des transactions
 
