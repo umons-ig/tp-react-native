@@ -127,11 +127,18 @@ Dans `app/(tabs)/index.tsx`, on veut afficher la liste des transactions et perme
 
     - Dans `loadTransactions()`, appelez `getTransactions()` et mettez à jour le state avec `setTransactions`.
     - Dans `handleDelete()`, appelez `deleteTransaction(id)` puis rechargez la liste.
-    - Affichez les transactions avec une `FlatList` et le composant `TransactionCard`.
-    - Ajoutez un bouton flottant (+) qui navigue vers `/new` avec `router.push('/new')`.
-
-    !!! tip "Conseil"
-        Les styles `fab` et `fabText` sont déjà définis pour le bouton flottant.
+    - Affichez les transactions avec une `FlatList` :
+    ```typescript
+    <FlatList
+      data={transactions}
+      keyExtractor={(item) => item.id.toString()}
+      renderItem={({ item }) => (
+        <TransactionCard transaction={item} onDelete={handleDelete} />
+      )}
+      ListEmptyComponent={<Text style={styles.empty}>Aucune transaction</Text>}
+    />
+    ```
+    - Ajoutez un bouton flottant (+) qui navigue vers `/new` avec `router.push('/new')`. Les styles `fab` et `fabText` sont déjà définis.
 
 ## Étape 3 : Le composant TransactionCard
 
