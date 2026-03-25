@@ -190,58 +190,24 @@ Dans `app/new/index.tsx`, on retrouve un formulaire pour ajouter une transaction
 !!! example "Tâche"
     Complétez le formulaire dans le `SafeAreaView` :
 
-    1. Ajoutez les boutons de type (Dépense / Revenu) dans une `View` avec le style `typeRow`. Chaque bouton est un `Pressable` qui change le state `type` :
+    1. Ajoutez deux `Pressable` dans une `View` avec le style `typeRow` pour choisir entre "Dépense" et "Revenu". Utilisez la composition de styles pour le bouton actif :
     ```typescript
-    <View style={styles.typeRow}>
-      <Pressable
-        style={[styles.typeBtn, type === 'expense' && styles.typeBtnActive]}
-        onPress={() => setType('expense')}
-      >
-        <Text style={[styles.typeBtnText, type === 'expense' && styles.typeBtnTextActive]}>
-          Dépense
-        </Text>
-      </Pressable>
-      {/* Même chose pour 'income' avec le texte "Revenu" */}
-    </View>
-    ```
-
-    2. Ajoutez deux `TextInput` pour le montant et la description :
-    ```typescript
-    <TextInput
-      style={styles.input}
-      placeholder="Montant"
-      keyboardType="numeric"
-      value={amount}
-      onChangeText={setAmount}
-    />
-    ```
-    Faites la même chose pour la description (sans `keyboardType`).
-
-    3. Affichez les catégories avec un `.map()` sur le tableau `CATEGORIES`. Chaque catégorie est un `Pressable` qui met à jour le state `category` :
-    ```typescript
-    <Text style={styles.label}>Catégorie</Text>
-    <View style={styles.categoriesGrid}>
-      {CATEGORIES.map((cat) => (
-        <Pressable
-          key={cat}
-          style={[styles.categoryBtn, category === cat && styles.categoryBtnActive]}
-          onPress={() => setCategory(cat)}
-        >
-          <Text style={[styles.categoryBtnText, category === cat && styles.categoryBtnTextActive]}>
-            {cat}
-          </Text>
-        </Pressable>
-      ))}
-    </View>
-    ```
-
-    4. Ajoutez un bouton de soumission et complétez `handleSubmit` :
-    ```typescript
-    <Pressable style={styles.submitBtn} onPress={handleSubmit}>
-      <Text style={styles.submitBtnText}>Ajouter</Text>
+    <Pressable
+      style={[styles.typeBtn, type === 'expense' && styles.typeBtnActive]}
+      onPress={() => setType('expense')}
+    >
+      <Text style={[styles.typeBtnText, type === 'expense' && styles.typeBtnTextActive]}>
+        Dépense
+      </Text>
     </Pressable>
     ```
-    Dans `handleSubmit`, appelez `addTransaction()` avec un objet contenant `amount` (parsé en nombre), `description`, `category`, `type` et la date du jour, puis `router.back()`.
+    Faites la même chose pour `'income'` avec le texte "Revenu".
+
+    2. Ajoutez deux `TextInput` (style `input`) : un pour le montant avec `keyboardType="numeric"`, un pour la description. Liez-les aux states avec `value` et `onChangeText`.
+
+    3. Affichez les catégories avec un `.map()` sur le tableau `CATEGORIES` dans une `View` avec le style `categoriesGrid`. Chaque catégorie est un `Pressable` (même pattern de styles actifs que les boutons de type) qui appelle `setCategory(cat)`.
+
+    4. Ajoutez un `Pressable` (style `submitBtn`) qui appelle `handleSubmit`. Dans `handleSubmit`, appelez `addTransaction()` avec un objet contenant les valeurs du formulaire et la date du jour, puis `router.back()`.
 
     !!! tip "Date du jour"
         Pour obtenir la date au format `YYYY-MM-DD` :
