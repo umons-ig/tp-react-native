@@ -172,13 +172,60 @@ Dans `components/TransactionCard.tsx`, le composant reçoit une transaction et u
 Dans `app/new/index.tsx`, on retrouve un formulaire pour ajouter une transaction. Les states (`amount`, `description`, `category`, `type`) et les styles sont déjà définis.
 
 !!! example "Tâche"
-    Complétez le formulaire :
+    Complétez le formulaire dans le `SafeAreaView` :
 
-    - Ajoutez deux `Pressable` pour choisir le type (Dépense / Revenu). Utilisez `styles.typeBtn` et `styles.typeBtnActive` pour le style actif.
-    - Ajoutez un `TextInput` pour le montant avec `keyboardType="numeric"`.
-    - Ajoutez un `TextInput` pour la description.
-    - Affichez les catégories (tableau `CATEGORIES`) avec un `.map()` sous forme de boutons sélectionnables.
-    - Dans `handleSubmit`, appelez `addTransaction()` avec les valeurs du formulaire et la date du jour, puis `router.back()`.
+    1. Ajoutez les boutons de type (Dépense / Revenu) dans une `View` avec le style `typeRow`. Chaque bouton est un `Pressable` qui change le state `type` :
+    ```typescript
+    <View style={styles.typeRow}>
+      <Pressable
+        style={[styles.typeBtn, type === 'expense' && styles.typeBtnActive]}
+        onPress={() => setType('expense')}
+      >
+        <Text style={[styles.typeBtnText, type === 'expense' && styles.typeBtnTextActive]}>
+          Dépense
+        </Text>
+      </Pressable>
+      {/* Même chose pour 'income' avec le texte "Revenu" */}
+    </View>
+    ```
+
+    2. Ajoutez deux `TextInput` pour le montant et la description :
+    ```typescript
+    <TextInput
+      style={styles.input}
+      placeholder="Montant"
+      keyboardType="numeric"
+      value={amount}
+      onChangeText={setAmount}
+    />
+    ```
+    Faites la même chose pour la description (sans `keyboardType`).
+
+    3. Affichez les catégories avec un `.map()` sur le tableau `CATEGORIES`. Chaque catégorie est un `Pressable` qui met à jour le state `category` :
+    ```typescript
+    <Text style={styles.label}>Catégorie</Text>
+    <View style={styles.categoriesGrid}>
+      {CATEGORIES.map((cat) => (
+        <Pressable
+          key={cat}
+          style={[styles.categoryBtn, category === cat && styles.categoryBtnActive]}
+          onPress={() => setCategory(cat)}
+        >
+          <Text style={[styles.categoryBtnText, category === cat && styles.categoryBtnTextActive]}>
+            {cat}
+          </Text>
+        </Pressable>
+      ))}
+    </View>
+    ```
+
+    4. Ajoutez un bouton de soumission et complétez `handleSubmit` :
+    ```typescript
+    <Pressable style={styles.submitBtn} onPress={handleSubmit}>
+      <Text style={styles.submitBtnText}>Ajouter</Text>
+    </Pressable>
+    ```
+    Dans `handleSubmit`, appelez `addTransaction()` avec un objet contenant `amount` (parsé en nombre), `description`, `category`, `type` et la date du jour, puis `router.back()`.
 
     !!! tip "Date du jour"
         Pour obtenir la date au format `YYYY-MM-DD` :
