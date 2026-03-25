@@ -125,36 +125,10 @@ Dans `app/(tabs)/index.tsx`, on veut afficher la liste des transactions et perme
 !!! example "Tâche"
     Complétez le fichier `app/(tabs)/index.tsx` :
 
-    1. Dans `loadTransactions()`, appelez `getTransactions()` et mettez à jour le state :
-    ```typescript
-    const data = await getTransactions();
-    setTransactions(data);
-    ```
-
-    2. Dans `handleDelete()`, supprimez la transaction puis rechargez la liste :
-    ```typescript
-    await deleteTransaction(id);
-    await loadTransactions();
-    ```
-
-    3. Dans le `SafeAreaView`, affichez les transactions avec une `FlatList` :
-    ```typescript
-    <FlatList
-      data={transactions}
-      keyExtractor={(item) => item.id.toString()}
-      renderItem={({ item }) => (
-        <TransactionCard transaction={item} onDelete={handleDelete} />
-      )}
-      ListEmptyComponent={<Text style={styles.empty}>Aucune transaction</Text>}
-    />
-    ```
-
-    4. Sous la `FlatList`, ajoutez un bouton flottant (+) pour naviguer vers le formulaire :
-    ```typescript
-    <Pressable style={styles.fab} onPress={() => router.push('/new')}>
-      <Text style={styles.fabText}>+</Text>
-    </Pressable>
-    ```
+    1. Dans `loadTransactions()`, appelez `getTransactions()` et mettez à jour le state avec `setTransactions`.
+    2. Dans `handleDelete()`, appelez `deleteTransaction(id)` puis rechargez la liste avec `loadTransactions()`.
+    3. Dans le `SafeAreaView`, affichez les transactions avec une `FlatList`. Passez le composant `TransactionCard` dans `renderItem` en lui passant la transaction et `handleDelete` en props.
+    4. Ajoutez un bouton flottant (`Pressable` avec les styles `fab`/`fabText`) qui navigue vers `/new` avec `router.push('/new')`.
 
 ## Étape 3 : Le composant TransactionCard
 
@@ -163,25 +137,15 @@ Dans `components/TransactionCard.tsx`, le composant reçoit une transaction et u
 !!! example "Tâche"
     Complétez le composant `TransactionCard` à l'intérieur de la `View style={styles.card}` :
 
-    1. Déclarez une constante pour savoir si c'est un revenu :
-    ```typescript
-    const isIncome = transaction.type === 'income';
-    ```
-
-    2. Ajoutez une `View` avec le style `info` contenant 3 `Text` :
-        - `transaction.description` avec le style `styles.description`
-        - `transaction.category` avec le style `styles.category`
-        - `transaction.date` avec le style `styles.date`
-
-    3. Affichez le montant avec la couleur qui dépend du type (vert pour revenu, rouge pour dépense) :
+    1. Déclarez une constante `isIncome` qui vaut `true` si `transaction.type === 'income'`.
+    2. Ajoutez une `View` (style `info`) contenant 3 `Text` : la description, la catégorie et la date (les styles correspondants existent déjà).
+    3. Affichez le montant avec la couleur qui dépend du type. Utilisez la composition de styles :
     ```typescript
     <Text style={[styles.amount, isIncome ? styles.income : styles.expense]}>
       {isIncome ? '+' : '-'}{transaction.amount.toFixed(2)} €
     </Text>
     ```
-
-    4. Ajoutez un `Pressable` de suppression avec le style `deleteBtn` qui appelle `onDelete(transaction.id)` au `onPress`. Affichez le texte `×` avec le style `deleteText`.
-        ```
+    4. Ajoutez un `Pressable` de suppression (style `deleteBtn`) qui appelle `onDelete(transaction.id)`.
 
 ## Étape 4 : Formulaire d'ajout
 
@@ -222,40 +186,8 @@ Dans `app/(tabs)/stats.tsx`, on affiche un résumé des finances. Les styles son
 !!! example "Tâche"
     Complétez la page de statistiques :
 
-    1. Dans `loadStats()`, chargez les données depuis la base :
-    ```typescript
-    const balance = await getBalance();
-    setIncome(balance.income);
-    setExpenses(balance.expenses);
-
-    const categories = await getTotalsByCategory();
-    setCategoryTotals(categories);
-    ```
-
-    2. Avant le `return`, calculez le solde :
-    ```typescript
-    const balance = income - expenses;
-    ```
-
-    3. Affichez la carte du solde :
-    ```typescript
-    <View style={styles.balanceCard}>
-      <Text style={styles.balanceLabel}>Solde</Text>
-      <Text style={styles.balanceAmount}>{balance.toFixed(2)} €</Text>
-    </View>
-    ```
-
-    4. Affichez les revenus et dépenses côte à côte dans une `View` avec le style `row`. Chaque côté est une `View` avec le style `summaryCard` contenant :
-        - Un `Text` avec le style `summaryLabel` (texte "Revenus" ou "Dépenses")
-        - Un `Text` avec le style `summaryAmount` et une couleur inline : `{ color: '#34C759' }` pour les revenus, `{ color: '#FF3B30' }` pour les dépenses
-
-    5. Affichez les dépenses par catégorie avec un `.map()` :
-    ```typescript
-    <Text style={styles.sectionTitle}>Dépenses par catégorie</Text>
-    {categoryTotals.map((cat) => (
-      <View key={cat.category} style={styles.categoryRow}>
-        <Text style={styles.categoryName}>{cat.category}</Text>
-        <Text style={styles.categoryAmount}>-{cat.total.toFixed(2)} €</Text>
-      </View>
-    ))}
-    ```
+    1. Dans `loadStats()`, appelez `getBalance()` pour mettre à jour les states `income` et `expenses`, et `getTotalsByCategory()` pour `categoryTotals`.
+    2. Avant le `return`, calculez le solde : `const balance = income - expenses`.
+    3. Affichez le solde dans une `View` (style `balanceCard`) avec deux `Text` : le label "Solde" et le montant formaté avec `.toFixed(2)`.
+    4. Affichez les revenus et dépenses côte à côte dans une `View` (style `row`). Chaque côté est une `View` (style `summaryCard`) avec un label et un montant. Utilisez une couleur inline pour différencier : `{ color: '#34C759' }` pour les revenus, `{ color: '#FF3B30' }` pour les dépenses.
+    5. Affichez les dépenses par catégorie avec un `.map()` sur `categoryTotals`. Chaque entrée est une `View` (style `categoryRow`) avec le nom de la catégorie et son total.
